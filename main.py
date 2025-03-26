@@ -22,6 +22,15 @@ def extract_text_from_pdf(uploaded_file):
         text += page.extract_text() or ""
     return text
 
+def extract_text_from_pd(uploaded_file):
+    pdf_bytes = uploaded_file.read()
+    text = ""
+    reader = PyPDF2.PdfReader(BytesIO(pdf_bytes))
+    for page_num in range(len(reader.pages)):
+        page = reader.pages[page_num]
+        text += page.extract_text() or ""
+    return text
+
 @app.route("/upload_pdf/", methods=["POST"])
 def upload_pdf():
     try:
